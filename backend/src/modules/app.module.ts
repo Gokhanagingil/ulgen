@@ -3,23 +3,24 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TodoModule } from './to_do/todo.module';
 import { TodoEntity } from './to_do/todo.entity';
+import { join } from 'path';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
-      envFilePath: '.env',
+      envFilePath: join(__dirname, '../../../.env'),
     }),
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
       inject: [ConfigService],
       useFactory: (config: ConfigService) => ({
         type: 'postgres',
-        host: String(config.get('DB_HOST')),
-        port: parseInt(String(config.get('DB_PORT') ?? '5432'), 10),
-        username: String(config.get('DB_USERNAME')),
-        password: String(config.get('DB_PASSWORD')),
-        database: String(config.get('DB_NAME')),
+        host: config.get<string>('DB_HOST'),
+        port: parseInt(config.get<string>('DB_PORT', '5432'), 10),
+        username: config.get<string>('DB_USERNAME'),
+        password: config.get<string>('DB_PASSWORD'),
+        database: config.get<string>('DB_NAME'),
         entities: [TodoEntity],
         synchronize: true,
       }),
