@@ -18,7 +18,7 @@ ulgen/
 ### Backend
 1. `cd backend`
 2. Install deps with `npm install`
-3. Copy `.env.example` to `.env` and configure PostgreSQL settings
+3. Copy `.env.example` to `.env` and configure the `DB_*` variables
 4. Run with `npm run start:dev`
 
 The API will start on `http://localhost:3000` and Swagger docs are available at
@@ -32,4 +32,5 @@ The API will start on `http://localhost:3000` and Swagger docs are available at
 The app will be served on `http://localhost:5173`.
 
 ## Environment Variables
-See `.env.example` for required variables.
+See `.env.example` for required variables such as `DB_HOST`, `DB_PORT`,
+`DB_USERNAME`, `DB_PASSWORD` and `DB_NAME`.
