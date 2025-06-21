@@ -1,10 +1,16 @@
 import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
 
 @Entity()
-export class Tenant {
+export class Todo {
   @PrimaryGeneratedColumn()
   id: number;
 
   @Column()
-  name: string;
+  title: string;
+
+  @Column({ default: false })
+  completed: boolean;
+
+  @Column()
+  tenantId: number;
 }

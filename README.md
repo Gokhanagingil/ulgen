@@ -1,41 +1,15 @@
-# Ülgen
+# gokhan
 
-Ülgen is a modern ITSM and GRC platform. This repository contains a minimal
-MVP with a ToDo module to demonstrate the stack.
+Minimal ITSM + GRC starter project using NestJS and React.
 
-## Project Structure
+## Structure
+- `/backend` - NestJS server
+- `/frontend` - React app with Vite and Tailwind
+- `/database/schema.sql` - sample database initialization
 
-```
-ulgen/
-├── backend/      NestJS API
-├── frontend/     React client (Vite + Tailwind)
-├── database/     SQL schema
-├── docs/         Architecture notes
-```
+## Getting Started
+1. Create a `.env` file based on `.env.example`.
+2. Run database migrations or load `schema.sql`.
+3. Install dependencies in both `backend` and `frontend`.
+4. Start the backend and frontend development servers.
 
-## Development
-
-### Backend
-1. `cd backend`
-2. Install deps with `npm install`
-3. Copy `.env.example` to `.env` and configure the `DB_*` variables
-4. Run with `npm run start:dev`
-
-The API will start on `http://localhost:3000` and Swagger docs are available at
-`http://localhost:3000/api`.
-
-The backend uses a simple multi-tenant setup. Tables contain a `tenant_id` column
-and an example tenant is inserted when running `database/schema.sql`.
-
-### Frontend
-1. `cd frontend`
-2. Install deps with `npm install`
-3. Run the dev server with `npm run dev`
-
-The app will be served on `http://localhost:5173`.
-
-## Environment Variables
-See `.env.example` for required variables such as `DB_HOST`, `DB_PORT`,
-`DB_USERNAME`, `DB_PASSWORD` and `DB_NAME`.
-
-Initialize the database by executing the SQL in `database/schema.sql`.
