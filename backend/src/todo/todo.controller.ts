@@ -1,4 +1,12 @@
-import { Controller, Get, Post, Body, Query, ParseIntPipe } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Query,
+  ParseIntPipe,
+  DefaultValuePipe,
+} from '@nestjs/common';
 import { ApiQuery } from '@nestjs/swagger';
 import { TodoService } from './todo.service';
 import { CreateTodoDto } from './dto/create-todo.dto';
@@ -16,10 +24,9 @@ export class TodoController {
   })
   create(
     @Body() dto: CreateTodoDto,
-    @Query('tenantId', ParseIntPipe) tenantId?: number,
+    @Query('tenantId', new DefaultValuePipe(1), ParseIntPipe) tenantId: number,
   ) {
-    const tid = tenantId ?? 1;
-    return this.todoService.create({ ...dto, tenantId: tid });
+    return this.todoService.create({ ...dto, tenantId });
   }
 
   @Get()
