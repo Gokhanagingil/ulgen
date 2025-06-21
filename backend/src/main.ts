@@ -3,9 +3,12 @@ import { AppModule } from './app.module';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { ValidationPipe } from '@nestjs/common';
 import { TenantInterceptor } from './tenant.interceptor';
+import { ConfigService } from '@nestjs/config';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+  const configService = app.get(ConfigService);
+  console.log('JWT_SECRET:', configService.get<string>('JWT_SECRET'));
   app.useGlobalInterceptors(new TenantInterceptor());
   app.useGlobalPipes(new ValidationPipe({ whitelist: true }));
 
