@@ -24,6 +24,9 @@ ulgen/
 The API will start on `http://localhost:3000` and Swagger docs are available at
 `http://localhost:3000/api`.
 
+The backend uses a simple multi-tenant setup. Tables contain a `tenant_id` column
+and an example tenant is inserted when running `database/schema.sql`.
+
 ### Frontend
 1. `cd frontend`
 2. Install deps with `npm install`
@@ -34,3 +37,5 @@ The app will be served on `http://localhost:5173`.
 ## Environment Variables
 See `.env.example` for required variables such as `DB_HOST`, `DB_PORT`,
 `DB_USERNAME`, `DB_PASSWORD` and `DB_NAME`.
+
+Initialize the database by executing the SQL in `database/schema.sql`.

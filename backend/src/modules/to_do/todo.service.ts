@@ -13,12 +13,13 @@ export class TodoService {
   ) {}
 
   create(dto: CreateTodoDto) {
-    const todo = this.repo.create({ ...dto, completed: false });
+    const tenantId = dto.tenantId ?? 1;
+    const todo = this.repo.create({ ...dto, tenantId, completed: false });
     return this.repo.save(todo);
   }
 
-  findAll() {
-    return this.repo.find();
+  findAll(tenantId = 1) {
+    return this.repo.find({ where: { tenantId } });
   }
 
   async update(id: number, dto: UpdateTodoDto) {
