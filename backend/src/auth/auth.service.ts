@@ -4,7 +4,7 @@ import { Repository } from 'typeorm';
 import { User } from '../entities/user.entity';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
-import { SignupDto } from './dto/signup.dto';
+import { CreateUserDto } from './dto/create-user.dto';
 import { LoginDto } from './dto/login.dto';
 
 @Injectable()
@@ -14,20 +14,18 @@ export class AuthService {
     private readonly jwt: JwtService,
   ) {}
 
-  async signup(dto: SignupDto) {
+  async signup(dto: CreateUserDto) {
     const existing = await this.users.findOne({ where: { email: dto.email } });
     if (existing) {
       throw new UnauthorizedException('email already used');
     }
-    const hashed = await bcrypt.hash(dto.password, 10);
     const user = this.users.create({
       username: dto.username,
       email: dto.email,
-      password: hashed,
+      password: await bcrypt.hash(dto.password, 10),
       tenantId: dto.tenantId,
     });
-    await this.users.save(user);
-    return { id: user.id, username: user.username, email: user.email };
+    return this.users.save(user);
   }
 
   async login(dto: LoginDto) {

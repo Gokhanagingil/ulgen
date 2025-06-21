@@ -14,6 +14,6 @@ export class User {
   @Column()
   password: string;
 
-  @Column()
+  @Column({ type: 'int', nullable: false })
   tenantId: number;
 }
