@@ -8,12 +8,18 @@ export class TodoController {
   constructor(private readonly todoService: TodoService) {}
 
   @Post()
-  @ApiQuery({ name: 'tenantId', required: true, type: Number, description: 'Tenant ID for multi-tenant isolation' })
+  @ApiQuery({
+    name: 'tenantId',
+    required: false,
+    type: Number,
+    description: 'Tenant ID for multi-tenant isolation',
+  })
   create(
     @Body() dto: CreateTodoDto,
-    @Query('tenantId', ParseIntPipe) tenantId: number,
+    @Query('tenantId', ParseIntPipe) tenantId?: number,
   ) {
-    return this.todoService.create(dto, tenantId);
+    const tid = tenantId ?? 1;
+    return this.todoService.create({ ...dto, tenantId: tid });
   }
 
   @Get()

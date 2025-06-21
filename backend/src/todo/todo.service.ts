@@ -11,8 +11,8 @@ export class TodoService {
     private readonly repo: Repository<Todo>,
   ) {}
 
-  create(dto: CreateTodoDto, tenantId: number) {
-    const todo = this.repo.create({ ...dto, tenantId });
+  create(dto: CreateTodoDto & { tenantId: number }) {
+    const todo = this.repo.create(dto);
     return this.repo.save(todo);
   }
 
