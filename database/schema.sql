@@ -1,38 +1,19 @@
-CREATE TABLE IF NOT EXISTS tenants (
+-- Sample database schema for gokhan project
+
+CREATE TABLE tenant (
   id SERIAL PRIMARY KEY,
-  name VARCHAR(255) NOT NULL,
-  "createdAt" TIMESTAMP NOT NULL DEFAULT NOW(),
-  "updatedAt" TIMESTAMP NOT NULL DEFAULT NOW()
+  name TEXT NOT NULL
 );
 
-INSERT INTO tenants (name) VALUES ('Default') ON CONFLICT DO NOTHING;
-
-CREATE TABLE IF NOT EXISTS todos (
+CREATE TABLE "user" (
   id SERIAL PRIMARY KEY,
-  title VARCHAR(255) NOT NULL,
-  description TEXT,
-  tenant_id INTEGER NOT NULL REFERENCES tenants(id),
-  completed BOOLEAN NOT NULL DEFAULT FALSE,
-  "createdAt" TIMESTAMP NOT NULL DEFAULT NOW(),
-  "updatedAt" TIMESTAMP NOT NULL DEFAULT NOW()
+  username TEXT NOT NULL,
+  tenant_id INTEGER REFERENCES tenant(id)
 );
 
-CREATE TABLE IF NOT EXISTS users (
+CREATE TABLE todo (
   id SERIAL PRIMARY KEY,
-  username VARCHAR(255) NOT NULL,
-  tenant_id INTEGER NOT NULL REFERENCES tenants(id),
-  "createdAt" TIMESTAMP NOT NULL DEFAULT NOW(),
-  "updatedAt" TIMESTAMP NOT NULL DEFAULT NOW()
-);
-
-CREATE TABLE IF NOT EXISTS profiles (
-  id SERIAL PRIMARY KEY,
-  bio TEXT,
-  user_id INTEGER UNIQUE REFERENCES users(id)
-);
-
-CREATE TABLE IF NOT EXISTS users_todos (
-  todo_id INTEGER REFERENCES todos(id),
-  user_id INTEGER REFERENCES users(id),
-  PRIMARY KEY (todo_id, user_id)
+  title TEXT NOT NULL,
+  completed BOOLEAN DEFAULT false,
+  tenant_id INTEGER REFERENCES tenant(id)
 );
