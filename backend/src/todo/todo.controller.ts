@@ -1,4 +1,5 @@
 import { Controller, Get, Post, Body, Req } from '@nestjs/common';
+import { ApiQuery } from '@nestjs/swagger';
 import { TodoService } from './todo.service';
 import { CreateTodoDto } from './dto/create-todo.dto';
 
@@ -12,6 +13,7 @@ export class TodoController {
   }
 
   @Get()
+  @ApiQuery({ name: 'tenantId', required: true, description: 'Tenant ID for multi-tenant isolation' })
   findAll(@Req() req: any) {
     return this.todoService.findAll(req.tenantId);
   }
