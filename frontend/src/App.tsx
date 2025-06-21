@@ -1,25 +1,18 @@
-import { useEffect, useState } from 'react';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import Signup from './pages/Signup';
+import Login from './pages/Login';
+import Todos from './pages/Todos';
 
 function App() {
-  const [todos, setTodos] = useState<any[]>([]);
-
-  useEffect(() => {
-    fetch('http://localhost:3000/todos?tenantId=1')
-      .then((res) => res.json())
-      .then((data) => setTodos(data));
-  }, []);
-
   return (
-    <div className="p-4">
-      <h1 className="text-2xl font-bold mb-4">Todos</h1>
-      <ul className="space-y-2">
-        {todos.map((todo) => (
-          <li key={todo.id} className="border p-2 rounded">
-            {todo.title}
-          </li>
-        ))}
-      </ul>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/signup" element={<Signup />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/todos" element={<Todos />} />
+        <Route path="*" element={<Navigate to="/login" replace />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 

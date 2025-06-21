@@ -5,6 +5,8 @@ import { Tenant } from './entities/tenant.entity';
 import { User } from './entities/user.entity';
 import { Todo } from './entities/todo.entity';
 import { TodoModule } from './todo/todo.module';
+import { AuthModule } from './auth/auth.module';
+import { TenantModule } from './tenant/tenant.module';
 
 @Module({
   imports: [
@@ -20,6 +22,8 @@ import { TodoModule } from './todo/todo.module';
       synchronize: true,
     }),
     TypeOrmModule.forFeature([Tenant, User, Todo]),
+    AuthModule,
+    TenantModule,
     TodoModule,
   ],
 })
