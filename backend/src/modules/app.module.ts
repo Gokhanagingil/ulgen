@@ -3,6 +3,9 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TodoModule } from './to_do/todo.module';
 import { TodoEntity } from './to_do/todo.entity';
+import { TenantEntity } from '../entities/tenant.entity';
+import { UserEntity } from '../entities/user.entity';
+import { ProfileEntity } from '../entities/profile.entity';
 import { join } from 'path';
 
 @Module({
@@ -21,7 +24,7 @@ import { join } from 'path';
         username: config.get<string>('DB_USERNAME'),
         password: config.get<string>('DB_PASSWORD'),
         database: config.get<string>('DB_NAME'),
-        entities: [TodoEntity],
+        entities: [TodoEntity, TenantEntity, UserEntity, ProfileEntity],
         synchronize: true,
       }),
     }),

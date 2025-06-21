@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsOptional, IsString } from 'class-validator';
+import { IsNotEmpty, IsOptional, IsString, IsNumber } from 'class-validator';
 
 export class CreateTodoDto {
   @IsString()
@@ -8,4 +8,8 @@ export class CreateTodoDto {
   @IsString()
   @IsOptional()
   description?: string;
+
+  @IsNumber()
+  @IsOptional()
+  tenantId?: number;
 }

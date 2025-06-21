@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Patch, Post, Query } from '@nestjs/common';
 import { TodoService } from './todo.service';
 import { CreateTodoDto } from './dto/create-todo.dto';
 import { UpdateTodoDto } from './dto/update-todo.dto';
@@ -16,8 +16,9 @@ export class TodoController {
   }
 
   @Get()
-  findAll(): Promise<TodoEntity[]> {
-    return this.service.findAll();
+  findAll(@Query('tenantId') tenantId?: string): Promise<TodoEntity[]> {
+    const id = tenantId ? Number(tenantId) : 1;
+    return this.service.findAll(id);
   }
 
   @Patch(':id')
