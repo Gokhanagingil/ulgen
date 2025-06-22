@@ -12,6 +12,7 @@ async function bootstrap() {
   console.log('JWT_SECRET:', configService.get<string>('JWT_SECRET'));
   app.useGlobalInterceptors(new TenantInterceptor(), app.get(LoggingInterceptor));
   app.useGlobalPipes(new ValidationPipe({ whitelist: true }));
+  app.enableCors({ origin: 'http://localhost:5173', credentials: true });
 
   const config = new DocumentBuilder()
     .setTitle('Gokhan API')
@@ -21,6 +22,7 @@ async function bootstrap() {
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document);
 
-  await app.listen(process.env.APP_PORT || 3000);
+  const port = configService.get<number>('APP_PORT') || 3000;
+  await app.listen(port);
 }
 bootstrap();
