@@ -12,7 +12,9 @@ async function bootstrap() {
   console.log('JWT_SECRET:', configService.get<string>('JWT_SECRET'));
   app.useGlobalInterceptors(new TenantInterceptor(), app.get(LoggingInterceptor));
   app.useGlobalPipes(new ValidationPipe({ whitelist: true }));
-  app.enableCors({ origin: 'http://localhost:5173', credentials: true });
+  const frontendUrl =
+    configService.get<string>('FRONTEND_URL') || 'http://localhost:5173';
+  app.enableCors({ origin: frontendUrl, credentials: true });
 
   const config = new DocumentBuilder()
     .setTitle('Gokhan API')
