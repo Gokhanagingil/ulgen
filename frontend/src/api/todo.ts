@@ -1,11 +1,11 @@
-import api from './axios';
+import client from './client';
 
 export async function fetchTodos(tenantId: number) {
-  const { data } = await api.get(`/todos`, { params: { tenantId } });
+  const { data } = await client.get(`/todos`, { params: { tenantId } });
   return data;
 }
 
 export async function addTodo(tenantId: number, title: string) {
-  const { data } = await api.post(`/todos?tenantId=${tenantId}`, { title });
+  const { data } = await client.post(`/todos?tenantId=${tenantId}`, { title });
   return data;
 }

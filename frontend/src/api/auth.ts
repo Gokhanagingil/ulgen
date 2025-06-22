@@ -1,9 +1,9 @@
-import api from './axios';
+import client from './client';
 
 export async function signup(data: { username: string; email: string; password: string; tenantId: number }) {
-  return (await api.post('/auth/signup', data)).data;
+  return (await client.post('/auth/signup', data)).data;
 }
 
 export async function login(data: { email: string; password: string }) {
-  return (await api.post('/auth/login', data)).data;
+  return (await client.post('/auth/login', data)).data;
 }

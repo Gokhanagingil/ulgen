@@ -5,5 +5,11 @@ export default defineConfig({
   plugins: [react()],
   server: {
     port: 5173,
+    proxy: {
+      '/auth': 'http://localhost:3000',
+      '/admin': 'http://localhost:3000',
+      '/todo': 'http://localhost:3000',
+      '/tenants': 'http://localhost:3000',
+    },
   },
 });
