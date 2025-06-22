@@ -42,4 +42,12 @@ describe('Auth (e2e)', () => {
 
     expect(res.body).toHaveProperty('accessToken');
   });
+
+  it('Hatalı şifre ile login reddedilmeli', async () => {
+    const res = await request(app.getHttpServer())
+      .post('/auth/login')
+      .send({ email: 'gokhan@example.com', password: 'wrong1' })
+      .expect(401);
+    console.log('Invalid login response:', res.body.message);
+  });
 });
