@@ -5,5 +5,5 @@ export async function signup(data: { username: string; email: string; password: 
 }
 
 export async function login(data: { email: string; password: string }) {
-  return (await client.post('/auth/login', data)).data;
+  return (await client.post('/auth/login', data, { withCredentials: true })).data;
 }
