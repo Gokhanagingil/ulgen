@@ -6,10 +6,10 @@ export default defineConfig({
   server: {
     port: 5173,
     proxy: {
-      '/auth': 'http://localhost:3000',
-      '/admin': 'http://localhost:3000',
-      '/todo': 'http://localhost:3000',
-      '/tenants': 'http://localhost:3000',
+      '/auth': { target: 'http://localhost:3000', changeOrigin: true },
+      '/admin': { target: 'http://localhost:3000', changeOrigin: true },
+      '/todos': { target: 'http://localhost:3000', changeOrigin: true },
+      '/tenants': { target: 'http://localhost:3000', changeOrigin: true },
     },
   },
 });
