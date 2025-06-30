@@ -41,6 +41,8 @@ export class AuthService {
       role: user.role,
     };
 
+    console.log('Generated token payload:', payload); // test amaçlı
+
     return {
       accessToken: await this.jwt.signAsync(payload),
     };
