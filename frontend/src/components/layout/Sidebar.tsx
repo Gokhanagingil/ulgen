@@ -11,22 +11,18 @@ export default function Sidebar() {
       <NavLink to="/todos" className={linkClass}>
         Todos
       </NavLink>
-      {role === 'admin' && (
-        <>
-          <NavLink to="/admin/dashboard" className={linkClass} end>
-            Dashboard
-          </NavLink>
-          <NavLink to="/admin/tables" className={linkClass}>
-            Tables
-          </NavLink>
-          <NavLink to="/admin/settings" className={linkClass}>
-            Settings
-          </NavLink>
-          <NavLink to="/admin/logs" className={linkClass}>
-            Logs
-          </NavLink>
-        </>
-      )}
+      <NavLink to="/admin/dashboard" className={linkClass}>
+        Dashboard
+      </NavLink>
+      <NavLink to="/admin/tables" className={linkClass}>
+        Tables
+      </NavLink>
+      <NavLink to="/admin/settings" className={linkClass}>
+        Settings
+      </NavLink>
+      <NavLink to="/admin/logs" className={linkClass}>
+        Logs
+      </NavLink>
     </div>
   );
 }
