@@ -6,7 +6,11 @@
     "start": "nest start",
     "start:dev": "nest start --watch",
     "build": "nest build",
-    "test:e2e": "jest --config jest-e2e.json"
+    "test": "jest",
+    "test:e2e": "jest --config jest-e2e.json",
+    "migration:generate": "typeorm-ts-node-commonjs migration:generate src/migrations/AutoMigration -d data-source.ts",
+    "migration:run": "typeorm-ts-node-commonjs migration:run -d data-source.ts",
+    "start:prod": "node dist/main.js"
   },
   "dependencies": {
     "@nestjs/common": "^10.0.0",

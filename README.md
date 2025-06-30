@@ -14,4 +14,6 @@ Minimal ITSM + GRC starter project using NestJS and React.
 4. Start the backend and frontend development servers.
    - `cd backend && npm install && npm run start:dev`
    - `cd frontend && npm install && npm run dev`
+   - Or simply run `./scripts/start.sh` and `./scripts/stop.sh` to manage both
+     servers together.
 

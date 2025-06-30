@@ -6,6 +6,9 @@ export default function Sidebar() {
 
   return (
     <div className="w-48 bg-gray-200 min-h-screen p-4 space-y-2">
+      <NavLink to="/todos" className={linkClass}>
+        Todos
+      </NavLink>
       <NavLink to="/admin/dashboard" className={linkClass} end>
         Dashboard
       </NavLink>
