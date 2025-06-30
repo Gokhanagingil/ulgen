@@ -1,8 +1,6 @@
 import { NavLink } from 'react-router-dom';
-import { useAuth } from '../../context/AuthContext';
 
 export default function Sidebar() {
-  const { role } = useAuth();
   const linkClass = ({ isActive }: { isActive: boolean }) =>
     `block p-2 rounded ${isActive ? 'bg-gray-300 font-bold' : ''}`;
 
