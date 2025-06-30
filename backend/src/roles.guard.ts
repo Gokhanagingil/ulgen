@@ -22,11 +22,22 @@ export class RolesGuard implements CanActivate {
     const rolesCount = await this.rolesRepo.count();
     if (rolesCount === 0) return true;
     const { user } = context.switchToHttp().getRequest();
-    if (!user || !user.roles || user.roles.length === 0) {
-      // allow first role assignment scenario
+    if (!user) return false;
+
+    const userRoles: string[] = [];
+    if (user.roles && Array.isArray(user.roles)) {
+      userRoles.push(...user.roles);
+    }
+    if (user.role) {
+      userRoles.push(user.role);
+    }
+
+    if (userRoles.length === 0) {
       if (rolesCount === 1) return true;
       return false;
     }
-    return requiredRoles.some((role) => user.roles.includes(role));
+
+    return requiredRoles.some((r) => userRoles.includes(r));
   }
 }
+

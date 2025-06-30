@@ -4,6 +4,8 @@ import { Roles } from '../roles.decorator';
 import { RolesGuard } from '../roles.guard';
 import { AuthGuard } from '@nestjs/passport';
 import { DotWalkingService } from '../dotwalking.service';
+import { CreateRoleDto } from './dto/create-role.dto';
+import { AssignRoleDto } from './dto/assign-role.dto';
 
 @Controller('admin')
 @UseGuards(AuthGuard('jwt'), RolesGuard)
@@ -30,14 +32,14 @@ export class AdminController {
 
   @Post('roles')
   @Roles('Admin')
-  createRole(@Body('name') name: string) {
-    return this.adminService.createRole(name);
+  createRole(@Body() dto: CreateRoleDto) {
+    return this.adminService.createRole(dto.name);
   }
 
   @Post('users/:id/roles')
   @Roles('Admin')
-  assignRole(@Param('id') id: number, @Body('role') role: string) {
-    return this.adminService.assignRole(id, role);
+  assignRole(@Param('id') id: number, @Body() dto: AssignRoleDto) {
+    return this.adminService.assignRole(id, dto.role);
   }
 
   @Get('config')
@@ -59,3 +61,4 @@ export class AdminController {
     return this.adminService.getLogs(Number(tenantId));
   }
 }
+
