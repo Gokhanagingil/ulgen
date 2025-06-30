@@ -12,6 +12,10 @@ export default function Login() {
 
   const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (!form.email || !form.password) {
+      setError('Email and password are required');
+      return;
+    }
     setError(null);
     setLoading(true);
     try {
@@ -48,3 +52,4 @@ export default function Login() {
     </form>
   );
 }
+
