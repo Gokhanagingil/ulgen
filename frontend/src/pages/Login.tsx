@@ -7,13 +7,23 @@ export default function Login() {
   const navigate = useNavigate();
   const { login } = useAuth();
   const [form, setForm] = useState({ email: '', password: '' });
+  const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState(false);
 
   const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const res = await loginRequest(form);
-    login(res.accessToken);
-    const { role } = JSON.parse(atob(res.accessToken.split('.')[1]));
-    navigate(role === 'admin' ? '/admin/dashboard' : '/todos');
+    setError(null);
+    setLoading(true);
+    try {
+      const res = await loginRequest(form);
+      login(res.accessToken);
+      const { role } = JSON.parse(atob(res.accessToken.split('.')[1]));
+      navigate(role === 'admin' ? '/admin/dashboard' : '/todos');
+    } catch (err: any) {
+      setError('Login failed');
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -31,9 +41,10 @@ export default function Login() {
         value={form.password}
         onChange={e => setForm({ ...form, password: e.target.value })}
       />
-      <button className="bg-blue-500 text-white px-4 py-2" type="submit">
-        Login
+      <button className="bg-blue-500 text-white px-4 py-2" type="submit" disabled={loading}>
+        {loading ? 'Loading...' : 'Login'}
       </button>
+      {error && <div className="text-red-600">{error}</div>}
     </form>
   );
 }

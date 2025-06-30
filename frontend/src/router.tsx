@@ -17,16 +17,6 @@ function RequireAuth({ children }: { children: JSX.Element }) {
   return children;
 }
 
-function RequireAdmin({ children }: { children: JSX.Element }) {
-  const { token, role } = useAuth();
-  if (!token) {
-    return <Navigate to="/login" replace />;
-  }
-  if (role !== 'admin') {
-    return <Navigate to="/todos" replace />;
-  }
-  return children;
-}
 
 function AdminLayout() {
   return (
@@ -68,9 +58,9 @@ function AppRoutes() {
     {
       path: '/admin',
       element: (
-        <RequireAdmin>
+        <RequireAuth>
           <AdminLayout />
-        </RequireAdmin>
+        </RequireAuth>
       ),
       children: [
         { path: 'dashboard', element: <Dashboard /> },

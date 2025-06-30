@@ -6,7 +6,7 @@ export default function Todos() {
   const navigate = useNavigate();
   const tenantId = 1; // demo tenant
   const [title, setTitle] = useState('');
-  const [todos, setTodos] = useState<any[]>([]);
+  const [todos, setTodos] = useState<any[] | null>(null);
 
   useEffect(() => {
     if (!localStorage.getItem('token')) {
@@ -31,11 +31,17 @@ export default function Todos() {
         <input className="border p-2" value={title} onChange={e => setTitle(e.target.value)} />
         <button className="bg-green-600 text-white px-3 py-2" type="submit">Add</button>
       </form>
-      <ul className="space-y-2">
-        {todos.map((t) => (
-          <li key={t.id} className="border p-2 rounded" >{t.title}</li>
-        ))}
-      </ul>
+      {todos === null ? (
+        <div>Loading...</div>
+      ) : todos.length === 0 ? (
+        <div>No data</div>
+      ) : (
+        <ul className="space-y-2">
+          {todos.map((t) => (
+            <li key={t.id} className="border p-2 rounded" >{t.title}</li>
+          ))}
+        </ul>
+      )}
     </div>
   );
 }
