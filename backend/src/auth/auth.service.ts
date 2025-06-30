@@ -31,10 +31,22 @@ export class AuthService {
 
   async login(dto: LoginDto) {
     const user = await this.users.findOne({ where: { email: dto.email } });
-    if (!user) throw new UnauthorizedException('invalid credentials');
-    const ok = await bcrypt.compare(dto.password, user.password);
-    if (!ok) throw new UnauthorizedException('invalid credentials');
-    const payload = { email: user.email, role: user.role };
-    return { accessToken: await this.jwt.signAsync(payload) };
+    if (!user) {
+      throw new UnauthorizedException('invalid credentials');
+    }
+
+    const passwordValid = await bcrypt.compare(dto.password, user.password);
+    if (!passwordValid) {
+      throw new UnauthorizedException('invalid credentials');
+    }
+
+    const payload = {
+      email: user.email,
+      role: user.role,
+    };
+
+    return {
+      accessToken: await this.jwt.signAsync(payload),
+    };
   }
 }
