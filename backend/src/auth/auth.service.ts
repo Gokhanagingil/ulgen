@@ -24,16 +24,17 @@ export class AuthService {
       email: dto.email,
       password: await bcrypt.hash(dto.password, 10),
       tenantId: dto.tenantId,
+      role: dto.role,
     });
     return this.users.save(user);
   }
 
   async login(dto: LoginDto) {
-    const user = await this.users.findOne({ where: { email: dto.email }, relations: { roles: true } });
+    const user = await this.users.findOne({ where: { email: dto.email } });
     if (!user) throw new UnauthorizedException('invalid credentials');
     const ok = await bcrypt.compare(dto.password, user.password);
     if (!ok) throw new UnauthorizedException('invalid credentials');
-    const payload = { sub: user.id, tenantId: user.tenantId, roles: user.roles?.map(r => r.name) || [] };
+    const payload = { email: user.email, role: user.role };
     return { accessToken: await this.jwt.signAsync(payload) };
   }
 }
